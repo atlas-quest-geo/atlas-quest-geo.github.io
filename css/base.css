@@ -198,3 +198,8 @@ main { display: block; padding: clamp(1rem, 3vw, 2.5rem) clamp(.9rem, 4vw, 3rem)
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
 @media print { .masthead, .footer, .toast, .pp-actions, .profilebar { display: none !important; } body { background: #fff; } }
+
+@media (max-width: 720px) { .chip { min-width: 44px; max-width: none; width: 44px; } }
+
+/* footer credit links: 44px touch targets on every device */
+footer a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .3em; }
