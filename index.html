@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atlas Quest — a vintage geography adventure</title>
+<meta name="description" content="Atlas Quest: an explorer's geography adventure. Flags, capitals, continents, currencies, find-it-on-the-map, an 80-second dash around the world, a daily challenge and a passport full of wax stamps. Free, offline-friendly, no sign-up.">
+<meta property="og:title" content="Atlas Quest — a vintage geography adventure">
+<meta property="og:description" content="Pack your compass. 195 countries, seven quiz expeditions, daily challenges and a stamp-filled passport you can export as a PNG.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kumarnikhildeveloperaccount.github.io/atlasquest/">
+<meta name="theme-color" content="#e9d8b4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1610" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/views.css">
+</head>
+<body data-theme="parchment">
+<a class="skip" href="#main">Skip to the expedition</a>
+
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="roughen" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+    </filter>
+    <filter id="inkbleed">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3" result="g"/>
+      <feDisplacementMap in="SourceGraphic" in2="g" scale="1.6"/>
+    </filter>
+    <filter id="waxGloss">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.2" result="b"/>
+      <feSpecularLighting in="b" surfaceScale="3" specularConstant="0.7" specularExponent="18" lighting-color="#fff" result="s">
+        <fePointLight x="-40" y="-60" z="90"/>
+      </feSpecularLighting>
+      <feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/>
+      <feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3="0.55" k4="0"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="airmail" aria-hidden="true"></div>
+
+<header class="masthead">
+  <button class="brand" type="button" data-view="map" aria-label="Atlas Quest — go to the Map Room">
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/>
+      <path d="M32 6 L37 32 L32 58 L27 32 Z" fill="#9b2c1f"/>
+      <path d="M6 32 L32 27 L58 32 L32 37 Z" fill="currentColor" opacity=".75"/>
+      <circle cx="32" cy="32" r="3" fill="#e9d8b4" stroke="currentColor"/>
+    </svg>
+    <span class="brand-text"><span class="brand-name">Atlas Quest</span><span class="brand-tag">Est. whenever you pressed play</span></span>
+  </button>
+
+  <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="mainnav" id="mainNav" aria-label="Main">
+    <button type="button" class="navbtn" data-view="map" aria-current="page">Map Room</button>
+    <button type="button" class="navbtn" data-view="quests">Expeditions</button>
+    <button type="button" class="navbtn" data-view="passport">Passport</button>
+    <button type="button" class="navbtn" data-view="gazetteer">Gazetteer</button>
+    <button type="button" class="navbtn" data-view="about">About</button>
+  </nav>
+
+  <div class="tools">
+    <button type="button" class="chip traveller" id="travellerChip" aria-label="Open your passport">
+      <span class="chip-dot" id="travellerDot"></span><span id="travellerName">Traveller</span>
+    </button>
+    <button type="button" class="iconbtn" id="btnSound" aria-pressed="false" aria-label="Sound is off — turn sound on" title="Sound">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="snd-on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="snd-off" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <button type="button" class="iconbtn" id="btnTheme" aria-label="Switch to lamplight theme" title="Theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-1 2-3 3-3 6a3 3 0 0 0 6 0c0-3-2-4-3-6z" fill="currentColor"/><rect x="8" y="12" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 22h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- ===================== MAP ROOM ===================== -->
+  <section class="view is-active" id="view-map" aria-labelledby="mapTitle">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="kicker">Chapter I · The Map Room</p>
+        <h1 id="mapTitle">The whole world,<br><em>roughly.</em></h1>
+        <p class="lede">195 countries, one slightly smudged parchment map and a compass that has opinions. Tap any pin to read the gazetteer entry, then set off on an expedition.</p>
+        <div class="hero-actions">
+          <button type="button" class="btn wax" data-view="quests"><span>Begin an expedition</span></button>
+          <button type="button" class="btn ghost" id="btnDailyHero">Today's challenge</button>
+        </div>
+        <p class="tiny muted" id="heroStreak">No streak yet. Every legend starts with day one.</p>
+      </div>
+      <button type="button" class="compass" id="compass" aria-label="Compass rose. It points somewhere interesting.">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <g class="compass-ring">
+            <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width=".8"/>
+            <g id="compassTicks"></g>
+            <text x="100" y="27" text-anchor="middle" class="cr-letter">N</text>
+            <text x="176" y="105" text-anchor="middle" class="cr-letter">E</text>
+            <text x="100" y="183" text-anchor="middle" class="cr-letter">S</text>
+            <text x="24" y="105" text-anchor="middle" class="cr-letter">W</text>
+          </g>
+          <g class="compass-star">
+            <path d="M100 38 L108 100 L100 162 L92 100Z" fill="currentColor" opacity=".25"/>
+            <path d="M38 100 L100 92 L162 100 L100 108Z" fill="currentColor" opacity=".25"/>
+            <path d="M58 58 L104 96 L142 142 L96 104Z" fill="currentColor" opacity=".14"/>
+            <path d="M142 58 L104 104 L58 142 L96 96Z" fill="currentColor" opacity=".14"/>
+          </g>
+          <g class="compass-needle" id="compassNeedle">
+            <path d="M100 44 L107 100 L93 100Z" fill="#9b2c1f"/>
+            <path d="M100 156 L107 100 L93 100Z" fill="currentColor"/>
+            <circle cx="100" cy="100" r="6" fill="#c9a24a" stroke="currentColor"/>
+          </g>
+        </svg>
+        <span class="compass-caption" id="compassCaption">Bearing: adventure</span>
+      </button>
+    </div>
+
+    <div class="mapframe">
+      <div class="map-legend">
+        <span class="legend-title">Carta Mundi <small>(stylised — not survey-accurate)</small></span>
+        <div class="map-ctrls">
+          <button type="button" class="iconbtn sm" id="zoomIn" aria-label="Zoom in">+</button>
+          <button type="button" class="iconbtn sm" id="zoomOut" aria-label="Zoom out">−</button>
+          <button type="button" class="iconbtn sm" id="zoomReset" aria-label="Reset map view">⟲</button>
+        </div>
+      </div>
+      <div class="mapwrap" id="mapWrap"></div>
+      <div class="mapinfo" id="mapInfo" aria-live="polite">
+        <p class="muted">Tap a pin. The ink is dry, promise.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPEDITIONS ===================== -->
+  <section class="view" id="view-quests" aria-labelledby="questTitle" hidden>
+    <p class="kicker">Chapter II · Expeditions</p>
+    <h2 id="questTitle">Choose your expedition</h2>
+    <p class="lede">Ten questions per voyage unless a clock is involved. Perfect rounds earn wax stamps for your passport.</p>
+    <div class="daily" id="dailyCard"></div>
+    <div class="modegrid" id="modeGrid"></div>
+  </section>
+
+  <!-- ===================== PASSPORT ===================== -->
+  <section class="view" id="view-passport" aria-labelledby="passTitle" hidden>
+    <p class="kicker">Chapter III · Papers, please</p>
+    <h2 id="passTitle">Your passport</h2>
+    <div class="profilebar">
+      <div class="profiles" id="profileList" role="radiogroup" aria-label="Traveller profiles"></div>
+      <form class="newprofile" id="newProfileForm" autocomplete="off">
+        <label for="newProfileName" class="sr">New traveller name</label>
+        <input id="newProfileName" maxlength="24" placeholder="New traveller name" required>
+        <button type="submit" class="btn small">Issue passport</button>
+      </form>
+    </div>
+
+    <div class="passport" id="passportBook">
+      <div class="pp-page pp-id" id="passIdentity"></div>
+      <div class="pp-page pp-stamps">
+        <h3>Visas &amp; stamps <span class="count" id="stampCount"></span></h3>
+        <div class="stampgrid" id="stampGrid"></div>
+      </div>
+      <div class="pp-page pp-scores">
+        <h3>Best voyages</h3>
+        <table class="besttable"><caption class="sr">Best scores by expedition</caption><tbody id="bestTable"></tbody></table>
+        <h3>Daily streak</h3>
+        <p id="streakInfo"></p>
+        <div class="streakcal" id="streakCal" aria-label="Daily challenge results, last 28 days"></div>
+      </div>
+    </div>
+
+    <div class="pp-actions">
+      <button type="button" class="btn wax" id="btnExportPng"><span>Export passport as PNG</span></button>
+      <button type="button" class="btn ghost" id="btnExportJson">Back up travellers (JSON)</button>
+      <button type="button" class="btn ghost" id="btnImportJson">Restore backup</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button type="button" class="btn ghost" id="btnRenameProfile">Rename</button>
+      <button type="button" class="btn ghost danger" id="btnDeleteProfile">Revoke passport</button>
+    </div>
+    <p class="tiny muted">Everything lives in this browser's localStorage. No accounts, no cloud, no customs officers.</p>
+  </section>
+
+  <!-- ===================== GAZETTEER ===================== -->
+  <section class="view" id="view-gazetteer" aria-labelledby="gzTitle" hidden>
+    <p class="kicker">Chapter IV · The Gazetteer</p>
+    <h2 id="gzTitle">Every country, catalogued</h2>
+    <div class="gztools">
+      <label class="field"><span>Search</span><input id="gzSearch" type="search" placeholder="Country, capital or currency…"></label>
+      <label class="field"><span>Continent</span>
+        <select id="gzCont">
+          <option value="">All continents</option>
+          <option value="AF">Africa</option><option value="AS">Asia</option><option value="EU">Europe</option>
+          <option value="NA">North America</option><option value="SA">South America</option><option value="OC">Oceania</option>
+        </select>
+      </label>
+      <p class="tiny muted" id="gzCount" aria-live="polite"></p>
+    </div>
+    <ul class="gzlist" id="gzList"></ul>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="view" id="view-about" aria-labelledby="aboutTitle" hidden>
+    <p class="kicker">Chapter V · Colophon</p>
+    <h2 id="aboutTitle">About this atlas</h2>
+    <div class="about">
+      <article class="card letter">
+        <h3>Made by</h3>
+        <p><strong>Designed &amp; built by Kumar Nikhil</strong> — hand-drawn map, hand-written code, hand-licked stamps (metaphorically).</p>
+        <ul class="links">
+          <li><a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">Portfolio</a></li>
+          <li><a href="https://www.linkedin.com/in/kumar-nikhil-1000a9192/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="mailto:nkashyapnikhilnk@gmail.com">Email</a></li>
+        </ul>
+        <p><a class="morelink" href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">More projects by Kumar Nikhil →</a></p>
+      </article>
+      <article class="card">
+        <h3>A note on the map</h3>
+        <p>The Carta Mundi is a <strong>stylised, simplified, hand-written SVG</strong> in an equirectangular projection. Coastlines are deliberately approximate — recognisable, not survey-accurate — and country pins are rough positions, not official centroids. Borders are not drawn. Please don't navigate a ship with it.</p>
+      </article>
+      <article class="card">
+        <h3>A note on the facts</h3>
+        <p>The gazetteer covers 195 countries (193 UN members plus the two observer states). Capitals, continents and currencies were checked carefully; where a fact is contested, in transition or genuinely ambiguous, it is <em>left out</em> rather than guessed, and that country simply sits out that quiz. Transcontinental countries skip the continent quiz. Flags are drawn only where they can be drawn faithfully with simple shapes (shown at a uniform 3:2 shape); flags with detailed emblems are skipped rather than drawn wrong.</p>
+      </article>
+      <article class="card">
+        <h3>How saving works</h3>
+        <p>Each traveller gets a passport in <code>localStorage</code>: stamps, best scores per expedition and a date-keyed daily streak. Export a passport page as a PNG, or back up every traveller as JSON.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== QUIZ STAGE ===================== -->
+  <section class="stage" id="quizStage" aria-labelledby="qTitle" hidden>
+    <div class="stage-card">
+      <div class="stage-head">
+        <button type="button" class="iconbtn" id="qQuit" aria-label="Abandon expedition">✕</button>
+        <div class="stage-title"><span class="kicker" id="qKicker">Expedition</span><h2 id="qTitle">Quiz</h2></div>
+        <div class="stage-meta">
+          <span class="pill" id="qProgress">1 / 10</span>
+          <span class="pill" id="qScore">0 pts</span>
+          <span class="pill timer" id="qTimer" hidden>80s</span>
+        </div>
+      </div>
+      <div class="progressbar" aria-hidden="true"><span id="qBar"></span></div>
+      <div class="stage-body">
+        <p class="qprompt" id="qPrompt" aria-live="polite"></p>
+        <div class="qvisual" id="qVisual"></div>
+        <div class="qoptions" id="qOptions"></div>
+        <p class="qfeedback" id="qFeedback" aria-live="assertive"></p>
+        <div class="stage-foot">
+          <button type="button" class="btn wax" id="qNext" hidden><span>Next stop →</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESULTS ===================== -->
+  <div class="modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultTitle" hidden>
+    <div class="modal-card postcard">
+      <div class="postmark" aria-hidden="true"></div>
+      <h2 id="resultTitle">Voyage complete</h2>
+      <p class="bigscore" id="resultScore"></p>
+      <p id="resultText"></p>
+      <div class="resultstamps" id="resultStamps"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn wax" id="btnAgain"><span>Sail again</span></button>
+        <button type="button" class="btn ghost" id="btnToPassport">See passport</button>
+        <button type="button" class="btn ghost" id="btnCloseResult">Back to harbour</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="airmail thin" aria-hidden="true"></div>
+  <div class="foot-inner">
+    <p><strong>Designed &amp; built by Kumar Nikhil</strong> ·
+      <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">Portfolio</a> ·
+      <a href="https://www.linkedin.com/in/kumar-nikhil-1000a9192/" target="_blank" rel="noopener">LinkedIn</a> ·
+      <a href="mailto:nkashyapnikhilnk@gmail.com">Email</a> ·
+      <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">More projects by Kumar Nikhil →</a></p>
+    <p class="gratitude">With gratitude to God — Om Namah Paarvati Pateh, Har Har Mahadev. May God bless you and everyone.</p>
+    <p class="tiny muted" id="footJoke">Map not to scale. Neither are our ambitions.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="stampfx" id="stampFx" aria-hidden="true"></div>
+
+<script src="js/data.js" defer></script>
+<script src="js/flags.js" defer></script>
+<script src="js/mapdata.js" defer></script>
+<script src="js/map.js" defer></script>
+<script src="js/audio.js" defer></script>
+<script src="js/profile.js" defer></script>
+<script src="js/passport.js" defer></script>
+<script src="js/quiz.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

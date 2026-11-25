@@ -1,0 +1,13 @@
+{
+  "name": "Atlas Quest — a vintage geography adventure",
+  "short_name": "Atlas Quest",
+  "description": "Flags, capitals, continents, currencies, find-it-on-the-map, an 80-second dash and a daily challenge, with a passport full of stamps.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ecdcb8",
+  "theme_color": "#9b2c1f",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
